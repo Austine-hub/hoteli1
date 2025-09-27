@@ -1,0 +1,413 @@
+/* ===========================
+   CSS Custom Properties
+=========================== */
+:root {
+  --header-bg-primary: transparent;
+  --header-bg-scrolled: rgba(40, 38, 32, 0.95);
+  --header-accent: #9acd32;
+  --header-text: #ffffff;
+  --header-black: #000000;
+  --header-shadow: rgba(0, 0, 0, 0.25);
+  --header-shadow-scrolled: rgba(0, 0, 0, 0.35);
+  --header-border-radius: 40px;
+  --header-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --header-blur: 16px;
+}
+
+/* ===========================
+   Header Base
+=========================== */
+.header {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  
+  background: var(--header-bg-primary);
+  backdrop-filter: blur(var(--header-blur));
+  -webkit-backdrop-filter: blur(var(--header-blur));
+  
+  border-radius: var(--header-border-radius);
+  box-shadow: 
+    0 8px 30px var(--header-shadow),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  
+  transition: var(--header-transition);
+  padding: 0.5rem 1rem;
+  
+  max-width: min(1200px, calc(100vw - 2rem));
+  width: calc(100% - 2rem);
+  
+  /* Accessibility */
+  contain: layout style;
+  will-change: background, box-shadow;
+}
+
+.header.scrolled {
+  background: var(--header-bg-scrolled);
+  box-shadow: 
+    0 10px 32px var(--header-shadow-scrolled),
+    0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.2rem;
+  max-height: 1.6rem;
+  gap: 1rem;
+}
+
+/* ===========================
+   Logo
+=========================== */
+.logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  z-index: 1001;
+  border-radius: 8px;
+  transition: var(--header-transition);
+}
+
+.logo:focus-visible {
+  outline: 2px solid var(--header-accent);
+  outline-offset: 2px;
+}
+
+.logoImage {
+  height: 1.95em;
+  width: 8.95em;
+  object-fit: contain;
+  transition: var(--header-transition);
+}
+
+.logo:hover .logoImage {
+  transform: scale(1.05);
+}
+
+/* ===========================
+   Desktop Navigation
+=========================== */
+.nav {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.navList {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: center;
+}
+
+.navItem {
+  position: relative;
+}
+
+.navLink {
+  color: var(--header-text);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 0.75rem 0.5rem;
+  border-radius: 6px;
+  transition: var(--header-transition);
+  position: relative;
+  display: block;
+}
+
+.navLink::after {
+  content: "";
+  position: absolute;
+  bottom: 0.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--header-accent);
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navLink:hover,
+.navLink:focus-visible {
+  color: var(--header-accent);
+  background: rgba(255, 255, 255, 0.05);
+  outline: none;
+}
+
+.navLink:hover::after,
+.navLink:focus-visible::after {
+  opacity: 1;
+}
+
+/* ===========================
+   CTA Button
+=========================== */
+.bookNow {
+  flex-shrink: 0;
+  z-index: 1001;
+}
+
+.bookButton {
+  background: var(--header-black);
+  color: var(--header-accent);
+  border: 2px solid transparent;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  transition: var(--header-transition);
+  position: relative;
+  overflow: hidden;
+  max-height: fit-content;
+}
+
+.bookButton:hover,
+.bookButton:focus-visible {
+  background: #111111;
+  border-color: var(--header-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  outline: none;
+}
+
+.bookButton:active {
+  transform: translateY(0);
+}
+
+/* ===========================
+   Mobile Toggle
+=========================== */
+.mobileToggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1002;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: var(--header-transition);
+  width: 40px;
+  height: 40px;
+}
+
+.mobileToggle:hover,
+.mobileToggle:focus-visible {
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+}
+
+.mobileToggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--header-text);
+  border-radius: 2px;
+  transition: var(--header-transition);
+  transform-origin: center;
+}
+
+.mobileToggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(4px, 4px);
+}
+
+.mobileToggle.active span:nth-child(2) {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.mobileToggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ===========================
+   Mobile Menu
+=========================== */
+.mobileMenu {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transform: translateX(-100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.mobileMenu.open {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobileNavList {
+  list-style: none;
+  margin: 0;
+  padding: 2rem;
+  text-align: center;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.mobileNavItem {
+  margin: 1.5rem 0;
+}
+
+.mobileNavLink {
+  color: var(--header-text);
+  text-decoration: none;
+  font-size: clamp(1.2rem, 4vw, 1.6rem);
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: var(--header-transition);
+  display: inline-block;
+  padding: 1rem;
+  border-radius: 8px;
+  position: relative;
+}
+
+.mobileNavLink:hover,
+.mobileNavLink:focus-visible {
+  color: var(--header-accent);
+  background: rgba(255, 255, 255, 0.05);
+  transform: scale(1.05);
+  outline: none;
+}
+
+.mobileBookButton {
+  background: var(--header-black);
+  color: var(--header-accent);
+  border: 2px solid var(--header-accent);
+  padding: 1rem 2.5rem;
+  border-radius: 35px;
+  font-weight: 600;
+  font-size: clamp(1rem, 3vw, 1.1rem);
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: var(--header-transition);
+  display: inline-block;
+}
+
+.mobileBookButton:hover,
+.mobileBookButton:focus-visible {
+  background: #111111;
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(154, 205, 50, 0.3);
+  outline: none;
+}
+
+/* ===========================
+   Responsive Design
+=========================== */
+@media (max-width: 992px) {
+  .nav,
+  .bookNow {
+    display: none;
+  }
+
+  .mobileToggle {
+    display: flex;
+  }
+
+  .container {
+    padding: 0 1rem;
+    min-height: 5.6rem;
+  }
+
+  .logoImage {
+    height: 3.6rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    top: 0.5rem;
+    padding: 0.25rem 0.75rem;
+  }
+
+  .container {
+    padding: 0 0.75rem;
+    min-height: 4.8rem;
+  }
+
+  .logoImage {
+    height: 3.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobileNavLink {
+    font-size: 1.3rem;
+    padding: 0.75rem;
+  }
+
+  .mobileNavItem {
+    margin: 1.2rem 0;
+  }
+
+  .mobileBookButton {
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+/* ===========================
+   Accessibility & Motion
+=========================== */
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .logoImage,
+  .navLink,
+  .bookButton,
+  .mobileToggle,
+  .mobileToggle span,
+  .mobileMenu,
+  .mobileNavLink,
+  .mobileBookButton {
+    transition: none;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .header {
+    border: 1px solid var(--header-text);
+  }
+
+  .navLink:focus-visible,
+  .bookButton:focus-visible,
+  .mobileToggle:focus-visible,
+  .mobileNavLink:focus-visible,
+  .mobileBookButton:focus-visible {
+    outline: 3px solid var(--header-accent);
+    outline-offset: 2px;
+  }
+}
