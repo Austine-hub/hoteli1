@@ -191,13 +191,14 @@ const Header: React.FC = () => {
           aria-label="Go to homepage"
           onClick={closeMobileMenu}
         >
-          <img 
-            src={logo} alt={LOGO_ALT} 
-            alt={LOGO_ALT} 
+            <img 
+            src={logo} 
+            alt={LOGO_ALT}
             className={styles.logoImage}
             loading="eager"
             decoding="async"
-          />
+            />
+
         </a>
 
         {/* Desktop Navigation */}

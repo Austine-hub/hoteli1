@@ -64,7 +64,7 @@ const Gallery: React.FC = () => {
     <div className={styles.galleryContainer}>
       {/* Header */}
       <div className={styles.galleryHeader}>
-        <div className={styles.headerIcon}>🖼️</div>
+        <div className={styles.headerIcon}></div>
         <h2 className={styles.galleryTitle}>Gallery</h2>
       </div>
 
